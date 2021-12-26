@@ -21,12 +21,11 @@ To download cargo-clone's code you would use
 
 ### Specifying versions
 The latest available version is downloaded by default.
-If specific versions are desired, semver specifiers can be appended to crate names. 
-
+If specific versions are desired, a @ and a semver specifier can be appended to a crate name. 
 
     cargo clone cargo-clone@1.0.0
 
-Versions are matched exactly by default, but other kinds of matching are also allowed.
+Exact version matching is the default, but other kinds of matching are also allowed.
 
     cargo clone cargo-clone@~1.0.0
 
@@ -50,14 +49,16 @@ The output dir can be specified as the last argument:
     cargo clone cargo-clone -- foo  # Downloads into $PWD/foo
 
 If multiple packages are downloaded at the same time or if the directory contains a trailing slash,
-the packages will be downloaded into subdirectories of the path provided.
+the packages will be downloaded into subdirectories of the provided path.
 
     cargo clone cargo-clone -- pkgs/  # Creates pkgs/cargo-clone/
-    cargo clone cargo serde -- pkgs2/  # Creates pkgs/cargo and pkgs/serde
+    cargo clone cargo serde -- pkgs2/  # Creates pkgs2/cargo and pkgs2/serde
 
 
 ## Contributing
 Contributions are welcome. Feel free to open a PR into develop branch.
+
+`cargo fmt`, `cargo clippy` and `cargo test` should be run to ensure the CI will also pass.
 
 When running locally, you can run using `cargo run -- clone CRATE` or `cargo-clone clone CRATE`.
 
