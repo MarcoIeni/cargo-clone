@@ -1,3 +1,6 @@
+## [1.1.0] - TBA
+- `--quiet` now gets passed to git when running with `--git`.
+
 ## [1.0.0] - 2021-12-27
 ### Added
 - Can now clone a package from a git repository specified in package's Cargo.toml file using `--git`.

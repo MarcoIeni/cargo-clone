@@ -97,10 +97,11 @@ fn version() -> String {
 
 pub fn execute(matches: clap::ArgMatches, config: &mut Config) -> Result<Option<()>> {
     let verbose = if matches.is_present("verbose") { 1 } else { 0 };
+    let quiet = matches.is_present("quiet");
 
     config.configure(
         verbose,
-        matches.is_present("quiet"),
+        quiet,
         matches.value_of("color"),
         false,
         false,
@@ -129,7 +130,7 @@ pub fn execute(matches: clap::ArgMatches, config: &mut Config) -> Result<Option<
         .map(cargo_clone::parse_name_and_version)
         .collect::<Result<Vec<cargo_clone::Crate>>>()?;
 
-    let opts = cargo_clone::CloneOpts::new(&crates, &source_id, directory, use_git);
+    let opts = cargo_clone::CloneOpts::new(&crates, &source_id, directory, use_git, quiet);
 
     cargo_clone::clone(&opts, config)?;
 

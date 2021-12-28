@@ -40,6 +40,7 @@ pub struct CloneOpts<'a> {
     srcid: &'a SourceId,
     directory: Option<&'a str>,
     git: bool,
+    quiet: bool,
 }
 
 impl<'a> CloneOpts<'a> {
@@ -48,12 +49,14 @@ impl<'a> CloneOpts<'a> {
         srcid: &'a SourceId,
         directory: Option<&'a str>,
         git: bool,
+        quiet: bool,
     ) -> CloneOpts<'a> {
         CloneOpts {
             crates,
             srcid,
             directory,
             git,
+            quiet,
         }
     }
 }
@@ -120,7 +123,7 @@ pub fn clone_single(
             )
         }
 
-        clone_git_repo(repo.as_ref().unwrap(), dest_path)?;
+        clone_git_repo(repo.as_ref().unwrap(), dest_path, opts.quiet)?;
     } else {
         clone_directory(pkg.root(), dest_path)?;
     }
@@ -224,9 +227,15 @@ fn clone_directory(from: &Path, to: &Path) -> CargoResult<()> {
     Ok(())
 }
 
-fn clone_git_repo(repo: &str, to: &Path) -> CargoResult<()> {
-    let status = Command::new("git")
-        .arg("clone")
+fn clone_git_repo(repo: &str, to: &Path, quiet: bool) -> CargoResult<()> {
+    let mut cmd = Command::new("git");
+    cmd.arg("clone");
+
+    if quiet {
+        cmd.arg("-q");
+    }
+
+    let status = cmd
         .arg(repo)
         .arg(to.to_str().unwrap())
         .status()
