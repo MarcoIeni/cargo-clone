@@ -18,35 +18,28 @@ fn main() {
         .version(version())
         .bin_name("cargo clone")
         // A hack to make calling cargo-clone directly work.
-        .arg(Arg::new("dummy")
+        .args([Arg::new("dummy")
             .hide(true)
             .required(true)
-            .value_parser(["clone"]))
-        .arg(
+            .value_parser(["clone"]),
             Arg::new("color")
                 .long("color")
                 .value_name("COLORING")
-                .help("Coloring: auto, always, never.")
-        )
-        .arg(
+                .help("Coloring: auto, always, never."),
             Arg::new("verbose")
                 .short('v')
                 .help("Use verbose output.")
                 .action(ArgAction::SetTrue),
-        )
-        .arg(
             Arg::new("quiet")
                 .short('q')
                 .help("Print less output to stdout.")
                 .action(ArgAction::SetTrue),
-        )
-        .arg(
             Arg::new("registry")
                 .long("registry")
                 .value_name("REGISTRY")
                 .help("A registry name from Cargo config to clone the specified crate from.")
                 .conflicts_with("index"),
-        )
+        ])
         .arg(
             Arg::new("index")
                 .long("index")
