@@ -70,7 +70,7 @@ fn main() {
         )
         .arg(
             Arg::new("crate")
-                .help("The crates to be downloaded. Versions may also be specified and are matched exactly by default. Examples: 'cargo-clone@1.0.0' 'cargo-clone@~1.0.0'.")
+                .help("The crates to be downloaded. Versions may also be specified and are matched exactly by default.\nExamples: 'cargo-clone@1.0.0' 'cargo-clone@~1.0.0'.")
                 .required(true)
                 .action(ArgAction::Append)
         )
